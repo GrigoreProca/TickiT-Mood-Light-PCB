@@ -55,3 +55,5 @@ fp-info-cache
 *.c_bck
 *.mc3
 *.yml
+*.ini
+*.log
