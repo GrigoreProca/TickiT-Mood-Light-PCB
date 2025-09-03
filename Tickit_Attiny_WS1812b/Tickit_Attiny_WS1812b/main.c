@@ -7,8 +7,8 @@
 #include <stdint.h>
 #include "WS2812B.h"
 #include <avr/xmega.h>
-
-
+uint32_t _r = 0, _g = 0, _b = 0;		
+void colorWheel(int color);
 int main(void)
 {
 
@@ -18,18 +18,53 @@ int main(void)
 	int i;
 	while(1)
 	{
-		for (i = 0; i < ledCount; i++) WsSendPixel(0, 255, 0);
-		_delay_ms(1000);
-		for (i = 0; i < ledCount; i++) WsSendPixel(255, 0, 0);
-				_delay_ms(1000);
-				for (i = 0; i < ledCount; i++) WsSendPixel(0, 0, 255);
-					_delay_ms(1000);
-						for (i = 0; i < ledCount; i++) WsSendPixel(255, 255, 255);
-						_delay_ms(1000);		
-		WsClear(ledCount);
-		_delay_ms(1000);
+		
+			for(uint32_t j=0; j<1530;j++)
+			{	
+			
+				for (i = 0; i < ledCount; i++) WsSendPixel(_r, _g, _b);
+					
+							colorWheel(j);
+							_delay_ms(10);
+			}
 
-	
+		
+
+
+
+		
 	}
 	
+}
+void colorWheel(int color) {
+	if (color <= 255) {						// ??????? ????, ??????? ??????
+		_r = 255;
+		_g = color;
+		_b = 0;
+	}
+	else if (color > 255 && color <= 510) {		// ??????? ????, ?????? ???????
+		_r = 510 - color;
+		_g = 255;
+		_b = 0;
+	}
+	else if (color > 510 && color <= 765) {		// ??????? ????, ?????? ?????
+		_r = 0;
+		_g = 255;
+		_b = color - 510;
+	}
+	else if (color > 765 && color <= 1020) {	// ????? ????, ?????? ???????
+		_r = 0;
+		_g = 1020 - color;
+		_b = 255;
+	}
+	else if (color > 1020 && color <= 1275) { 	// ????? ????, ?????? ???????
+		_r = color - 1020;
+		_g = 0;
+		_b = 255;
+	}
+	else if (color > 1275 && color <= 1530) {	// ??????? ????, ?????? ?????
+		_r = 255;
+		_g = 0;
+		_b = 1530 - color;
+	}
 }

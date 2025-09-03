@@ -57,3 +57,6 @@ fp-info-cache
 *.yml
 *.ini
 *.log
+*.ipc
+/TickiT_WS2812B_PCB/production/backups
+TickiT_WS2812B_PCB/fabrication-toolkit-options.json
